@@ -1,6 +1,16 @@
 #include <stdexcept>
 #include <string>
 
+class Grade
+{
+  public:
+    static const int GRADE_MAX;
+    static const int GRADE_MIN;
+
+    static bool isGradeTooLow(int grade);
+    static bool isGradeTooHigh(int grade);
+};
+
 class Bureaucrat
 {
   public:
@@ -16,9 +26,6 @@ class Bureaucrat
         GradeTooLowException();
     };
 
-    typedef GradeTooLowException  TooLow;
-    typedef GradeTooHighException TooHigh;
-
     Bureaucrat(const std::string &name, int grade);
     Bureaucrat(const Bureaucrat &other);
     ~Bureaucrat();
@@ -27,19 +34,18 @@ class Bureaucrat
 
     const std::string &getName() const;
     int                getGrade() const;
-    void               incrementGrade();
-    void               decrementGrade();
+
+    void incrementGrade();
+    void decrementGrade();
 
   private:
-    static const int GRADE_MAX;
-    static const int GRADE_MIN;
+    typedef GradeTooLowException  TooLow;
+    typedef GradeTooHighException TooHigh;
 
-    const std::string _name;
     int               _grade;
+    const std::string _name;
 
     static void throwIfInvalidGrade(int grade) throw(TooLow, TooHigh);
-    static bool isGradeTooLow(int grade);
-    static bool isGradeTooHigh(int grade);
 };
 
 std::ostream &operator<<(std::ostream &out, Bureaucrat &other);
