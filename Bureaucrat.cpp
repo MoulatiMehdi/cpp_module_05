@@ -2,8 +2,18 @@
 #include <iostream>
 #include <string>
 
-const int Bureaucrat::GRADE_MAX = 1;
-const int Bureaucrat::GRADE_MIN = 150;
+const int Grade::GRADE_MAX = 1;
+const int Grade::GRADE_MIN = 150;
+
+bool Grade::isGradeTooHigh(int grade)
+{
+    return grade < GRADE_MAX;
+}
+
+bool Grade::isGradeTooLow(int grade)
+{
+    return grade > GRADE_MIN;
+}
 
 Bureaucrat::TooLow::GradeTooLowException()
     : std::range_error("Grade invalid : too low")
@@ -49,16 +59,6 @@ int Bureaucrat::getGrade() const
     return _grade;
 }
 
-bool Bureaucrat::isGradeTooHigh(int grade)
-{
-    return grade < GRADE_MAX;
-}
-
-bool Bureaucrat::isGradeTooLow(int grade)
-{
-    return grade > GRADE_MIN;
-}
-
 void Bureaucrat::incrementGrade()
 {
     throwIfInvalidGrade(_grade - 1);
@@ -73,9 +73,9 @@ void Bureaucrat::decrementGrade()
 
 void Bureaucrat::throwIfInvalidGrade(int grade) throw(TooLow, TooHigh)
 {
-    if (isGradeTooHigh(grade))
+    if (Grade::isGradeTooHigh(grade))
         throw TooHigh();
-    if (isGradeTooLow(grade))
+    if (Grade::isGradeTooLow(grade))
         throw TooLow();
 }
 
