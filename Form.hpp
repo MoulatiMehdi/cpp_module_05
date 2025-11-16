@@ -21,7 +21,7 @@ class Form
     Form(const Form &other);
     ~Form();
 
-    bool beSigned(Bureaucrat &other);
+    void beSigned(Bureaucrat &other);
 
     const std::string &getName() const;
     int                getGradeToSign() const;
@@ -31,16 +31,11 @@ class Form
     typedef GradeTooLowException  TooLow;
     typedef GradeTooHighException TooHigh;
 
-    static const int GRADE_MAX;
-    static const int GRADE_MIN;
-
     bool              _signed;
-    const std::string _name;
     const int         _gradeToSign;
     const int         _gradeToExecute;
+    const std::string _name;
 
     Form       &operator=(const Form &other);
     static void throwIfInvalidGrade(int grade) throw(TooLow, TooHigh);
-    static bool isGradeTooLow(int grade);
-    static bool isGradeTooHigh(int grade);
 };

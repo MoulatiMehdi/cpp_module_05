@@ -3,9 +3,6 @@
 #include <iostream>
 #include <string>
 
-const int Form::GRADE_MAX = 1;
-const int Form::GRADE_MIN = 150;
-
 Form::TooLow::GradeTooLowException()
     : std::range_error("Grade invalid : too low")
 {
@@ -56,23 +53,18 @@ int Form::getGradeToSign() const
     return _gradeToSign;
 }
 
-bool Form::beSigned(Bureaucrat &other) {}
-
-bool Form::isGradeTooHigh(int grade)
+void Form::beSigned(Bureaucrat &other)
 {
-    return grade < GRADE_MAX;
-}
-
-bool Form::isGradeTooLow(int grade)
-{
-    return grade > GRADE_MIN;
+    throwIfInvalidGrade(other.getGrade());
+    if (other.getGrade() < _gradeToSign)
+        _signed = true;
 }
 
 void Form::throwIfInvalidGrade(int grade) throw(TooLow, TooHigh)
 {
-    if (isGradeTooHigh(grade))
+    if (Grade::isGradeTooHigh(grade))
         throw TooHigh();
-    if (isGradeTooLow(grade))
+    if (Grade::isGradeTooLow(grade))
         throw TooLow();
 }
 
