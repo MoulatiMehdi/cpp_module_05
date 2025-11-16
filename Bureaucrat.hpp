@@ -19,13 +19,13 @@ class Grade
 class Bureaucrat
 {
   public:
-    class GradeTooHighException : public std::range_error
+    class GradeTooHighException : public std::out_of_range
     {
       public:
         GradeTooHighException();
     };
 
-    class GradeTooLowException : public std::range_error
+    class GradeTooLowException : public std::out_of_range
     {
       public:
         GradeTooLowException();

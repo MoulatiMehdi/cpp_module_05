@@ -2,6 +2,7 @@
 #include "Form.hpp"
 #include <exception>
 #include <iostream>
+#include <stdexcept>
 #include <string>
 
 const int Grade::GRADE_MAX = 1;
@@ -18,25 +19,26 @@ bool Grade::isGradeTooLow(int grade)
 }
 
 Bureaucrat::TooLow::GradeTooLowException()
-    : std::range_error("Grade invalid : too low")
+    : std::out_of_range("Grade invalid : too low")
 {
 }
 
 Bureaucrat::TooHigh::GradeTooHighException()
-    : std::range_error("Grade invalid : too high")
+    : std::out_of_range("Grade invalid : too high")
 {
 }
 
 Bureaucrat::Bureaucrat(const std::string &name, int grade)
-    : _name(name),
-      _grade(grade)
+    : _grade(grade),
+      _name(name)
 {
     throwIfInvalidGrade(_grade);
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat &other)
-    : _name(other._name),
-      _grade(other._grade)
+    : _grade(other._grade),
+      _name(other._name)
+
 {
     throwIfInvalidGrade(_grade);
 }
