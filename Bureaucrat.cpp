@@ -1,5 +1,6 @@
 #include "Bureaucrat.hpp"
 #include <iostream>
+#include <stdexcept>
 #include <string>
 
 const int Grade::GRADE_MAX = 1;
@@ -16,12 +17,12 @@ bool Grade::isGradeTooLow(int grade)
 }
 
 Bureaucrat::TooLow::GradeTooLowException()
-    : std::range_error("Grade invalid : too low")
+    : std::out_of_range("Grade invalid : too low")
 {
 }
 
 Bureaucrat::TooHigh::GradeTooHighException()
-    : std::range_error("Grade invalid : too high")
+    : std::out_of_range("Grade invalid : too high")
 {
 }
 
