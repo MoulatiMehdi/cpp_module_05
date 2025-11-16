@@ -16,30 +16,23 @@ int main(int, char *[])
 {
     title("Should Work Normaly (constructors)");
     {
-        try
-        {
-            Bureaucrat a("bob", 50);
-            Bureaucrat b("ali", 80);
+        Bureaucrat a("bob", 50);
+        Bureaucrat b("ali", 80);
 
-            std::cout << "A : " << a;
-            std::cout << "B : " << b << std::endl;
+        std::cout << "A : " << a;
+        std::cout << "B : " << b << std::endl;
 
-            b = a;
+        b = a;
 
-            std::cout << "A : " << a;
-            std::cout << "B : " << b;
-        }
-        catch (std::exception &e)
-        {
-            std::cout << e.what() << std::endl;
-        }
+        std::cout << "A : " << a;
+        std::cout << "B : " << b;
     }
     title("Should Throw a GradeTooHighException exception");
     try
     {
         Bureaucrat a("bob", -1);
     }
-    catch (std::exception &e)
+    catch (Bureaucrat::GradeTooHighException &e)
     {
         std::cout << e.what() << std::endl;
     }
@@ -48,12 +41,11 @@ int main(int, char *[])
     {
         Bureaucrat a("bob", 151);
     }
-    catch (std::exception &e)
+    catch (Bureaucrat::GradeTooLowException &e)
     {
         std::cout << e.what() << std::endl;
     }
     title("Should Work Normaly (incrementGrade /decrementGrade)");
-    try
     {
         Bureaucrat a("bob", 3);
 
@@ -67,10 +59,6 @@ int main(int, char *[])
         a.incrementGrade();
         std::cout << a;
     }
-    catch (std::exception &e)
-    {
-        std::cout << e.what() << std::endl;
-    }
     title("Should Throw a GradeTooHighException exception");
     try
     {
@@ -81,7 +69,7 @@ int main(int, char *[])
         a.incrementGrade();
         std::cout << a;
     }
-    catch (std::exception &e)
+    catch (Bureaucrat::GradeTooHighException &e)
     {
         std::cout << e.what() << std::endl;
     }
@@ -96,7 +84,7 @@ int main(int, char *[])
         a.decrementGrade();
         std::cout << a;
     }
-    catch (std::exception &e)
+    catch (Bureaucrat::GradeTooLowException &e)
     {
         std::cout << e.what() << std::endl;
     }
