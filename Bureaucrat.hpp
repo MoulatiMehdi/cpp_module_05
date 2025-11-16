@@ -1,5 +1,10 @@
+#ifndef BUREAUCRAT_HPP
+#define BUREAUCRAT_HPP
+
 #include <stdexcept>
 #include <string>
+
+class Form;
 
 class Grade
 {
@@ -29,6 +34,7 @@ class Bureaucrat
     Bureaucrat(const std::string &name, int grade);
     Bureaucrat(const Bureaucrat &other);
     ~Bureaucrat();
+    void signForm(Form &form);
 
     Bureaucrat &operator=(const Bureaucrat &other);
 
@@ -49,3 +55,5 @@ class Bureaucrat
 };
 
 std::ostream &operator<<(std::ostream &out, Bureaucrat &other);
+
+#endif

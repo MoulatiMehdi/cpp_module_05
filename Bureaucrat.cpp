@@ -1,4 +1,6 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
+#include <exception>
 #include <iostream>
 #include <string>
 
@@ -69,6 +71,20 @@ void Bureaucrat::decrementGrade()
 {
     throwIfInvalidGrade(_grade + 1);
     _grade++;
+}
+
+void Bureaucrat::signForm(Form &form)
+{
+    try
+    {
+        form.beSigned(*this);
+        std::cout << _name << " signed " << form.getName() << std::endl;
+    }
+    catch (std::exception &e)
+    {
+        std::cout << _name << " couldn't sign " << form.getName() << " because "
+                  << e.what();
+    }
 }
 
 void Bureaucrat::throwIfInvalidGrade(int grade) throw(TooLow, TooHigh)

@@ -1,15 +1,16 @@
 
 #include "Form.hpp"
 #include <iostream>
+#include <stdexcept>
 #include <string>
 
 Form::TooLow::GradeTooLowException()
-    : std::range_error("Grade invalid : too low")
+    : std::out_of_range("Grade invalid : too low")
 {
 }
 
 Form::TooHigh::GradeTooHighException()
-    : std::range_error("Grade invalid : too high")
+    : std::out_of_range("Grade invalid : too high")
 {
 }
 
@@ -53,11 +54,19 @@ int Form::getGradeToSign() const
     return _gradeToSign;
 }
 
+bool Form::isSigned() const
+{
+    return _signed;
+}
+
 void Form::beSigned(Bureaucrat &other)
 {
     throwIfInvalidGrade(other.getGrade());
-    if (other.getGrade() < _gradeToSign)
-        _signed = true;
+    if (_signed)
+        throw std::logic_error("Form is signed already.");
+    if (other.getGrade() > _gradeToSign)
+        throw std::range_error("Grade not high enough to sign.");
+    _signed = true;
 }
 
 void Form::throwIfInvalidGrade(int grade) throw(TooLow, TooHigh)
