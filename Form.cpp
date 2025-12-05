@@ -16,9 +16,9 @@ Form::TooHigh::GradeTooHighException()
 
 Form::Form(const std::string &name, int gradeToSign, int gradeToExecute)
     : _signed(false),
-      _name(name),
       _gradeToSign(gradeToSign),
-      _gradeToExecute(gradeToExecute)
+      _gradeToExecute(gradeToExecute),
+      _name(name)
 {
     throwIfInvalidGrade(_gradeToSign);
     throwIfInvalidGrade(_gradeToExecute);
@@ -26,15 +26,15 @@ Form::Form(const std::string &name, int gradeToSign, int gradeToExecute)
 
 Form::Form(const Form &other)
     : _signed(other._signed),
-      _name(other._name),
       _gradeToSign(other._gradeToSign),
-      _gradeToExecute(other._gradeToExecute)
+      _gradeToExecute(other._gradeToExecute),
+      _name(other._name)
 {
 }
 
 Form::~Form() {}
 
-Form &Form::operator=(const Form &other)
+Form &Form::operator=(const Form &)
 {
     return *this;
 }
