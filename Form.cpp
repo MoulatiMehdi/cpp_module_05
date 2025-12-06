@@ -5,12 +5,12 @@
 #include <string>
 
 Form::TooLow::GradeTooLowException()
-    : std::out_of_range("grade too low")
+    : std::out_of_range("grade is too low")
 {
 }
 
 Form::TooHigh::GradeTooHighException()
-    : std::out_of_range("grade too high")
+    : std::out_of_range("grade is too high")
 {
 }
 
