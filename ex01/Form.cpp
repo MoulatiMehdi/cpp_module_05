@@ -5,17 +5,25 @@
 #include <string>
 
 Form::TooLow::GradeTooLowException()
-    : std::out_of_range("Grade invalid : too low")
+    : std::out_of_range("grade invalid : too low")
 {
 }
 
 Form::TooHigh::GradeTooHighException()
-    : std::out_of_range("Grade invalid : too high")
+    : std::out_of_range("grade invalid : too high")
 {
 }
 
+void Form::throwIfInvalidGrade(int grade) throw(TooLow, TooHigh)
+{
+    if (Grade::isGradeTooHigh(grade))
+        throw TooHigh();
+    if (Grade::isGradeTooLow(grade))
+        throw TooLow();
+}
+
 Form::Form(const std::string &name, int gradeToSign, int gradeToExecute)
-    : _signed(false),
+    : _isSigned(false),
       _gradeToSign(gradeToSign),
       _gradeToExecute(gradeToExecute),
       _name(name)
@@ -25,7 +33,7 @@ Form::Form(const std::string &name, int gradeToSign, int gradeToExecute)
 }
 
 Form::Form(const Form &other)
-    : _signed(other._signed),
+    : _isSigned(false),
       _gradeToSign(other._gradeToSign),
       _gradeToExecute(other._gradeToExecute),
       _name(other._name)
@@ -56,25 +64,14 @@ int Form::getGradeToSign() const
 
 bool Form::isSigned() const
 {
-    return _signed;
+    return _isSigned;
 }
 
 void Form::beSigned(Bureaucrat &other)
 {
-    throwIfInvalidGrade(other.getGrade());
-    if (_signed)
-        throw std::logic_error("Form is signed already.");
     if (other.getGrade() > _gradeToSign)
-        throw std::range_error("Grade not high enough to sign.");
-    _signed = true;
-}
-
-void Form::throwIfInvalidGrade(int grade) throw(TooLow, TooHigh)
-{
-    if (Grade::isGradeTooHigh(grade))
-        throw TooHigh();
-    if (Grade::isGradeTooLow(grade))
         throw TooLow();
+    _isSigned = true;
 }
 
 std::ostream &operator<<(std::ostream &out, Form &other)

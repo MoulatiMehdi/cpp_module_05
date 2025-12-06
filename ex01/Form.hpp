@@ -35,7 +35,7 @@ class Form
     typedef GradeTooLowException  TooLow;
     typedef GradeTooHighException TooHigh;
 
-    bool              _signed;
+    bool              _isSigned;
     const int         _gradeToSign;
     const int         _gradeToExecute;
     const std::string _name;
