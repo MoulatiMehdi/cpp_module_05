@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <string>
 
-class Form;
+class AForm;
 
 class Grade
 {
@@ -34,7 +34,7 @@ class Bureaucrat
     Bureaucrat(const std::string &name, int grade);
     Bureaucrat(const Bureaucrat &other);
     ~Bureaucrat();
-    void signForm(Form &form);
+    void signAForm(AForm &form);
 
     Bureaucrat &operator=(const Bureaucrat &other);
 

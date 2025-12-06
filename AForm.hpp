@@ -1,13 +1,24 @@
-#ifndef FORM_HPP
-#define FORM_HPP
+#ifndef A_FORM_HPP
+#define A_FORM_HPP
 
 #include "Bureaucrat.hpp"
 #include <stdexcept>
 #include <string>
 
-class Form
+class AForm
 {
   public:
+    AForm(const std::string &name, int gradeToSign, int gradeToExecute);
+    AForm(const AForm &other);
+
+    virtual ~AForm();
+    virtual void beSigned(Bureaucrat &other) = 0;
+
+    bool               isSigned() const;
+    int                getGradeToSign() const;
+    int                getGradeToExecute() const;
+    const std::string &getName() const;
+
     class GradeTooHighException : public std::out_of_range
     {
       public:
@@ -20,27 +31,16 @@ class Form
         GradeTooLowException();
     };
 
-    Form(const std::string &name, int gradeToSign, int gradeToExecute);
-    Form(const Form &other);
-    ~Form();
-
-    void beSigned(Bureaucrat &other);
-
-    bool               isSigned() const;
-    int                getGradeToSign() const;
-    int                getGradeToExecute() const;
-    const std::string &getName() const;
-
-  private:
     typedef GradeTooLowException  TooLow;
     typedef GradeTooHighException TooHigh;
 
+  private:
     bool              _isSigned;
     const int         _gradeToSign;
     const int         _gradeToExecute;
     const std::string _name;
 
-    Form       &operator=(const Form &other);
+    AForm      &operator=(const AForm &other);
     static void throwIfInvalidGrade(int grade) throw(TooLow, TooHigh);
 };
 
