@@ -1,6 +1,5 @@
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
-#include <exception>
 #include <iostream>
 #include <stdexcept>
 #include <string>
@@ -19,12 +18,12 @@ bool Grade::isGradeTooLow(int grade)
 }
 
 Bureaucrat::TooLow::GradeTooLowException()
-    : std::out_of_range("Grade invalid : too low")
+    : std::out_of_range("grade is too low")
 {
 }
 
 Bureaucrat::TooHigh::GradeTooHighException()
-    : std::out_of_range("Grade invalid : too high")
+    : std::out_of_range("grade is too high")
 {
 }
 
@@ -38,7 +37,6 @@ Bureaucrat::Bureaucrat(const std::string &name, int grade)
 Bureaucrat::Bureaucrat(const Bureaucrat &other)
     : _grade(other._grade),
       _name(other._name)
-
 {
     throwIfInvalidGrade(_grade);
 }
@@ -75,20 +73,6 @@ void Bureaucrat::decrementGrade()
     _grade++;
 }
 
-void Bureaucrat::signForm(Form &form)
-{
-    try
-    {
-        form.beSigned(*this);
-        std::cout << _name << " signed " << form.getName() << std::endl;
-    }
-    catch (std::exception &e)
-    {
-        std::cout << _name << " couldn't sign " << form.getName() << " because "
-                  << e.what() << std::endl;
-    }
-}
-
 void Bureaucrat::throwIfInvalidGrade(int grade) throw(TooLow, TooHigh)
 {
     if (Grade::isGradeTooHigh(grade))
@@ -102,4 +86,18 @@ std::ostream &operator<<(std::ostream &out, Bureaucrat &other)
     std::cout << other.getName() << ", bureaucrat grade " << other.getGrade()
               << std::endl;
     return out;
+}
+
+void Bureaucrat::signForm(Form &form)
+{
+    try
+    {
+        form.beSigned(*this);
+        std::cout << _name << " signed " << form.getName() << std::endl;
+    }
+    catch (std::exception &e)
+    {
+        std::cout << _name << " couldn't sign " << form.getName() << " because "
+                  << e.what() << std::endl;
+    }
 }
