@@ -11,6 +11,7 @@ class PresidentialPardonForm : public AForm
 
   public:
     static const std::string NAME;
+    static AForm            *clone(const std::string &target);
 
     PresidentialPardonForm(const std::string &name);
     PresidentialPardonForm(const PresidentialPardonForm &other);

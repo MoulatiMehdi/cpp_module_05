@@ -25,9 +25,10 @@ class AForm
 
     AForm(const std::string &name, int gradeToSign, int gradeToExecute);
     AForm(const AForm &other);
-    virtual ~AForm();
 
-    virtual void       executeFormAction() const = 0;
+    virtual ~AForm();
+    virtual void   executeFormAction() const              = 0;
+
     void               execute(const Bureaucrat &other) const;
     int                getGradeToSign() const;
     int                getGradeToExecute() const;

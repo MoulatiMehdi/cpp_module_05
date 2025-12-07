@@ -10,6 +10,11 @@
 
 const std::string PresidentialPardonForm::NAME = "presidential pardon";
 
+AForm *PresidentialPardonForm::clone(const std::string &target) 
+{
+    return new PresidentialPardonForm(target);
+}
+
 PresidentialPardonForm::PresidentialPardonForm(const std::string &name)
     : AForm(NAME, 25, 5),
       _target(name)

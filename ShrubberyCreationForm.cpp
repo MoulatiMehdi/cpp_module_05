@@ -9,6 +9,11 @@
 
 const std::string ShrubberyCreationForm::NAME = "shrubbery creation";
 
+AForm *ShrubberyCreationForm::clone(const std::string &target) 
+{
+    return new ShrubberyCreationForm(target);
+}
+
 ShrubberyCreationForm::ShrubberyCreationForm(const std::string &name)
     : AForm(NAME, 145, 137),
       _target(name)
@@ -60,3 +65,4 @@ void ShrubberyCreationForm::executeFormAction() const
         );
     out.close();
 }
+

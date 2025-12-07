@@ -11,6 +11,7 @@ class RobotomyRequestForm : public AForm
 
   public:
     static const std::string NAME;
+    static AForm            *clone(const std::string &target);
 
     RobotomyRequestForm(const std::string &name);
     RobotomyRequestForm(const RobotomyRequestForm &other);
