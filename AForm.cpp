@@ -36,18 +36,6 @@ AForm::AForm(const AForm &other)
 {
 }
 
-void AForm::execute(const Bureaucrat &other) const
-{
-    if (other.getGrade() > _gradeToExecute)
-        throw TooLow();
-    other.executeForm(*this);
-}
-
-void AForm::executeFormAction() const
-{
-    std::cout << "Default Form Action is called" << std::endl;
-}
-
 AForm::~AForm() {}
 
 const std::string &AForm::getName() const
@@ -75,6 +63,20 @@ void AForm::beSigned(Bureaucrat &other)
     if (other.getGrade() > _gradeToSign)
         throw TooLow();
     _isSigned = true;
+}
+
+void AForm::execute(const Bureaucrat &other) const
+{
+    if (!_isSigned)
+        throw std::logic_error("it is not signed");
+    if (other.getGrade() > _gradeToExecute)
+        throw TooLow();
+    executeFormAction();
+}
+
+void AForm::executeFormAction() const
+{
+    std::cout << "Default Form Action is called" << std::endl;
 }
 
 AForm &AForm::operator=(const AForm &)

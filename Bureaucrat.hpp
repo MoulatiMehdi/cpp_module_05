@@ -36,11 +36,11 @@ class Bureaucrat
     ~Bureaucrat();
 
     Bureaucrat &operator=(const Bureaucrat &other);
-    void        signAForm(AForm &form);
+    void        signForm(AForm &form);
     void        incrementGrade();
     void        decrementGrade();
 
-    void               executeForm(AForm const &form) const;
+    void               executeForm(const AForm &form) const;
     const std::string &getName() const;
     int                getGrade() const;
 
