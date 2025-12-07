@@ -8,17 +8,6 @@
 class AForm
 {
   public:
-    AForm(const std::string &name, int gradeToSign, int gradeToExecute);
-    AForm(const AForm &other);
-
-    virtual ~AForm();
-    virtual void beSigned(Bureaucrat &other) = 0;
-
-    bool               isSigned() const;
-    int                getGradeToSign() const;
-    int                getGradeToExecute() const;
-    const std::string &getName() const;
-
     class GradeTooHighException : public std::out_of_range
     {
       public:
@@ -33,6 +22,19 @@ class AForm
 
     typedef GradeTooLowException  TooLow;
     typedef GradeTooHighException TooHigh;
+
+    AForm(const std::string &name, int gradeToSign, int gradeToExecute);
+    AForm(const AForm &other);
+    virtual ~AForm();
+
+    virtual void       executeFormAction() const = 0;
+    void               execute(const Bureaucrat &other) const;
+    int                getGradeToSign() const;
+    int                getGradeToExecute() const;
+    bool               isSigned() const;
+    const std::string &getName() const;
+
+    void beSigned(Bureaucrat &other);
 
   private:
     bool              _isSigned;

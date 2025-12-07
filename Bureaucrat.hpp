@@ -34,15 +34,15 @@ class Bureaucrat
     Bureaucrat(const std::string &name, int grade);
     Bureaucrat(const Bureaucrat &other);
     ~Bureaucrat();
-    void signAForm(AForm &form);
 
     Bureaucrat &operator=(const Bureaucrat &other);
+    void        signAForm(AForm &form);
+    void        incrementGrade();
+    void        decrementGrade();
 
+    void               executeForm(AForm const &form) const;
     const std::string &getName() const;
     int                getGrade() const;
-
-    void incrementGrade();
-    void decrementGrade();
 
   private:
     typedef GradeTooLowException  TooLow;

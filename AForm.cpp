@@ -1,16 +1,12 @@
-
 #include "AForm.hpp"
+#include "Bureaucrat.hpp"
 #include <iostream>
 #include <stdexcept>
 #include <string>
 
-AForm::TooLow::GradeTooLowException()
-    : std::out_of_range("grade is too low")
-{
-}
+AForm::TooLow::GradeTooLowException() : std::out_of_range("grade is too low") {}
 
-AForm::TooHigh::GradeTooHighException()
-    : std::out_of_range("grade is too high")
+AForm::TooHigh::GradeTooHighException() : std::out_of_range("grade is too high")
 {
 }
 
@@ -38,6 +34,18 @@ AForm::AForm(const AForm &other)
       _gradeToExecute(other._gradeToExecute),
       _name(other._name)
 {
+}
+
+void AForm::execute(const Bureaucrat &other) const
+{
+    if (other.getGrade() > _gradeToExecute)
+        throw TooLow();
+    other.executeForm(*this);
+}
+
+void AForm::executeFormAction() const
+{
+    std::cout << "Default Form Action is called" << std::endl;
 }
 
 AForm::~AForm() {}
