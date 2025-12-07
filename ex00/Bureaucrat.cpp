@@ -17,12 +17,12 @@ bool Grade::isGradeTooLow(int grade)
 }
 
 Bureaucrat::TooLow::GradeTooLowException()
-    : std::out_of_range("Grade invalid : too low")
+    : std::out_of_range("grade is too low")
 {
 }
 
 Bureaucrat::TooHigh::GradeTooHighException()
-    : std::out_of_range("Grade invalid : too high")
+    : std::out_of_range("grade is too high")
 {
 }
 

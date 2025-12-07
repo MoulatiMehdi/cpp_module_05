@@ -1,12 +1,12 @@
 #include "Bureaucrat.hpp"
 #include <cmath>
 #include <cstdlib>
-#include <exception>
 #include <iostream>
 #include <string>
 
 void title(const std::string &label)
 {
+    std::cout << std::endl;
     std::cout << std::string(100, '-') << std::endl;
     std::cout << "\t" << label << std::endl;
     std::cout << std::string(100, '-') << std::endl;
@@ -66,6 +66,7 @@ int main(int, char *[])
 
         std::cout << a;
 
+        std::cout << "Incrementing => ";
         a.incrementGrade();
         std::cout << a;
     }
@@ -78,9 +79,9 @@ int main(int, char *[])
     try
     {
         Bureaucrat a("bob", 150);
-
         std::cout << a;
 
+        std::cout << "Decrementing => ";
         a.decrementGrade();
         std::cout << a;
     }
