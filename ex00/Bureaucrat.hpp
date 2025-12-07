@@ -51,6 +51,6 @@ class Bureaucrat
     static void throwIfInvalidGrade(int grade) throw(TooLow, TooHigh);
 };
 
-std::ostream &operator<<(std::ostream &out, Bureaucrat &other);
+std::ostream &operator<<(std::ostream &out, const Bureaucrat &other);
 
 #endif

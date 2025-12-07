@@ -34,7 +34,7 @@ class Bureaucrat
     Bureaucrat(const std::string &name, int grade);
     Bureaucrat(const Bureaucrat &other);
     ~Bureaucrat();
-    void signForm(Form &form);
+    void signForm(Form &form) const;
 
     Bureaucrat &operator=(const Bureaucrat &other);
 
@@ -54,6 +54,6 @@ class Bureaucrat
     static void throwIfInvalidGrade(int grade) throw(TooLow, TooHigh);
 };
 
-std::ostream &operator<<(std::ostream &out, Bureaucrat &other);
+std::ostream &operator<<(std::ostream &out, const Bureaucrat &other);
 
 #endif

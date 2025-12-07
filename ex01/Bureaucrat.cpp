@@ -81,14 +81,14 @@ void Bureaucrat::throwIfInvalidGrade(int grade) throw(TooLow, TooHigh)
         throw TooLow();
 }
 
-std::ostream &operator<<(std::ostream &out, Bureaucrat &other)
+std::ostream &operator<<(std::ostream &out, const Bureaucrat &other)
 {
     std::cout << other.getName() << ", bureaucrat grade " << other.getGrade()
               << std::endl;
     return out;
 }
 
-void Bureaucrat::signForm(Form &form)
+void Bureaucrat::signForm(Form &form) const
 {
     try
     {

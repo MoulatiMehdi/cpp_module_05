@@ -1,16 +1,13 @@
 
 #include "Form.hpp"
+#include <ios>
 #include <iostream>
 #include <stdexcept>
 #include <string>
 
-Form::TooLow::GradeTooLowException()
-    : std::out_of_range("grade is too low")
-{
-}
+Form::TooLow::GradeTooLowException() : std::out_of_range("grade is too low") {}
 
-Form::TooHigh::GradeTooHighException()
-    : std::out_of_range("grade is too high")
+Form::TooHigh::GradeTooHighException() : std::out_of_range("grade is too high")
 {
 }
 
@@ -67,17 +64,17 @@ bool Form::isSigned() const
     return _isSigned;
 }
 
-void Form::beSigned(Bureaucrat &other)
+void Form::beSigned(const Bureaucrat &other)
 {
     if (other.getGrade() > _gradeToSign)
         throw TooLow();
     _isSigned = true;
 }
 
-std::ostream &operator<<(std::ostream &out, Form &other)
+std::ostream &operator<<(std::ostream &out, const Form &other)
 {
     std::cout << other.getName() << ", grade to sign " << other.getGradeToSign()
               << ", grade to execute " << other.getGradeToExecute()
-              << std::endl;
+              << ", signed " << std::boolalpha << other.isSigned() << std::endl;
     return out;
 }

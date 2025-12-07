@@ -24,7 +24,7 @@ class Form
     Form(const Form &other);
     ~Form();
 
-    void beSigned(Bureaucrat &other);
+    void beSigned(const Bureaucrat &other);
 
     bool               isSigned() const;
     int                getGradeToSign() const;
@@ -44,4 +44,5 @@ class Form
     static void throwIfInvalidGrade(int grade) throw(TooLow, TooHigh);
 };
 
+std::ostream &operator<<(std::ostream &out, const Form &other);
 #endif
