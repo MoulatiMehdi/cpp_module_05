@@ -6,9 +6,12 @@
 #include <cstring>
 #include <ctime>
 #include <iostream>
+#include <string>
+
+const std::string PresidentialPardonForm::NAME = "presidential pardon";
 
 PresidentialPardonForm::PresidentialPardonForm(const std::string &name)
-    : AForm("robotomy_request_form", 25, 5),
+    : AForm(NAME, 25, 5),
       _target(name)
 {
 }

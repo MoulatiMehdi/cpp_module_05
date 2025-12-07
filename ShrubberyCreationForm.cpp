@@ -7,10 +7,10 @@
 #include <stdexcept>
 #include <string>
 
-typedef ShrubberyCreationForm ShrubberyCreationForm;
+const std::string ShrubberyCreationForm::NAME = "shrubbery creation";
 
 ShrubberyCreationForm::ShrubberyCreationForm(const std::string &name)
-    : AForm("shrubbery_creation_form", 145, 137),
+    : AForm(NAME, 145, 137),
       _target(name)
 {
 }

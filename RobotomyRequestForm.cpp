@@ -9,8 +9,10 @@
 #include <stdexcept>
 #include <string>
 
+const std::string RobotomyRequestForm::NAME = "robotomy request";
+
 RobotomyRequestForm::RobotomyRequestForm(const std::string &name)
-    : AForm("robotomy_request_form", 72, 45),
+    : AForm(NAME, 72, 45),
       _target(name)
 {
 }
