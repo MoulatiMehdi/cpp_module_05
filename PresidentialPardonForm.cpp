@@ -1,0 +1,37 @@
+#include "PresidentialPardonForm.hpp"
+#include "AForm.hpp"
+#include "Bureaucrat.hpp"
+#include <cerrno>
+#include <cstdlib>
+#include <cstring>
+#include <ctime>
+#include <iostream>
+
+PresidentialPardonForm::PresidentialPardonForm(const std::string &name)
+    : AForm("robotomy_request_form", 25, 5),
+      _target(name)
+{
+}
+
+PresidentialPardonForm::PresidentialPardonForm(
+    const PresidentialPardonForm &other
+)
+    : AForm(other),
+      _target(other._target)
+{
+}
+
+PresidentialPardonForm::~PresidentialPardonForm() {}
+
+PresidentialPardonForm &
+PresidentialPardonForm::operator=(const PresidentialPardonForm &other)
+{
+    _target = other._target;
+    return *this;
+}
+
+void PresidentialPardonForm::executeFormAction() const
+{
+    std::cout << _target << " has been pardoned by Zaphod Beeblebrox"
+              << std::endl;
+}
