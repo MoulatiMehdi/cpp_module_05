@@ -24,6 +24,7 @@ class Form
     Form(const std::string &name, int gradeToSign, int gradeToExecute);
     Form(const Form &other);
     ~Form();
+    Form &operator=(const Form &other);
 
     void beSigned(const Bureaucrat &other);
 
@@ -38,7 +39,6 @@ class Form
     const int         _gradeToExecute;
     const std::string _name;
 
-    Form       &operator=(const Form &other);
     static void throwIfInvalidGrade(int grade) throw(
         GradeTooLowException, GradeTooHighException
     );

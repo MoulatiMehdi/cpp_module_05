@@ -26,6 +26,8 @@ int main()
         for (int i = 0; i < 3; i++)
         {
             ShrubberyCreationForm form("home");
+            std::cout << peaple[i];
+            std::cout << form;
             peaple[i].signForm(form);
             peaple[i].executeForm(form);
             std::cout << std::string(75, '-') << std::endl;
@@ -41,6 +43,8 @@ int main()
         for (int i = 0; i < 3; i++)
         {
             RobotomyRequestForm form("home");
+            std::cout << peaple[i];
+            std::cout << form;
             peaple[i].signForm(form);
             peaple[i].executeForm(form);
             std::cout << std::string(75, '-') << std::endl;
@@ -56,6 +60,8 @@ int main()
         for (int i = 0; i < 3; i++)
         {
             PresidentialPardonForm form("home");
+            std::cout << peaple[i];
+            std::cout << form;
             peaple[i].signForm(form);
             peaple[i].executeForm(form);
             std::cout << std::string(75, '-') << std::endl;

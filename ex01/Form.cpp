@@ -25,6 +25,16 @@ void Form::throwIfInvalidGrade(int grade) throw(
         throw GradeTooLowException();
 }
 
+Form::Form()
+    : _isSigned(false),
+      _gradeToSign(Grade::GRADE_MIN),
+      _gradeToExecute(Grade::GRADE_MIN),
+      _name("permit")
+{
+    throwIfInvalidGrade(_gradeToSign);
+    throwIfInvalidGrade(_gradeToExecute);
+}
+
 Form::Form(const std::string &name, int gradeToSign, int gradeToExecute)
     : _isSigned(false),
       _gradeToSign(gradeToSign),
@@ -41,6 +51,8 @@ Form::Form(const Form &other)
       _gradeToExecute(other._gradeToExecute),
       _name(other._name)
 {
+    throwIfInvalidGrade(_gradeToSign);
+    throwIfInvalidGrade(_gradeToExecute);
 }
 
 Form::~Form()

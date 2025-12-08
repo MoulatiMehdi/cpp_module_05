@@ -24,6 +24,7 @@ class AForm
     AForm(const std::string &name, int gradeToSign, int gradeToExecute);
     AForm(const AForm &other);
     virtual ~AForm();
+    AForm &operator=(const AForm &other);
 
     void beSigned(const Bureaucrat &other);
 
@@ -41,7 +42,6 @@ class AForm
     const int         _gradeToExecute;
     const std::string _name;
 
-    AForm      &operator=(const AForm &other);
     static void throwIfInvalidGrade(int grade) throw(
         GradeTooLowException, GradeTooHighException
     );
