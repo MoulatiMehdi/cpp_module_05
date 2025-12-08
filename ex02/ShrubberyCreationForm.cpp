@@ -7,10 +7,16 @@
 #include <stdexcept>
 #include <string>
 
-typedef ShrubberyCreationForm ShrubberyCreationForm;
+const std::string ShrubberyCreationForm::NAME = "shrubbery creation";
+
+ShrubberyCreationForm::ShrubberyCreationForm()
+    : AForm(NAME, 145, 137),
+      _target("home")
+{
+}
 
 ShrubberyCreationForm::ShrubberyCreationForm(const std::string &name)
-    : AForm("shrubbery_creation_form", 145, 137),
+    : AForm(NAME, 145, 137),
       _target(name)
 {
 }
@@ -21,7 +27,9 @@ ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &other)
 {
 }
 
-ShrubberyCreationForm::~ShrubberyCreationForm() {}
+ShrubberyCreationForm::~ShrubberyCreationForm()
+{
+}
 
 ShrubberyCreationForm &
 ShrubberyCreationForm::operator=(const ShrubberyCreationForm &other)
@@ -59,4 +67,9 @@ void ShrubberyCreationForm::executeFormAction() const
             name + " file is not writable (" + strerror(errno) + ")"
         );
     out.close();
+}
+
+AForm *ShrubberyCreationForm::clone(const std::string &target)
+{
+    return new ShrubberyCreationForm(target);
 }

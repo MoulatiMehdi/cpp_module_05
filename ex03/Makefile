@@ -12,8 +12,8 @@ NAME = run
 
 all : $(NAME)
 
-$(NAME) : $(OBJS)
-	$(CXX) $(CXXFLAGS) $^ -o $@ 
+$(NAME) : $(OBJS) $(DEPS)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $@ 
 
 %.o : %.c $(DEPS)
 	$(CXX) $(CXXFLAGS) -c  $< -o $@

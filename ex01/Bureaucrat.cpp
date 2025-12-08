@@ -17,14 +17,19 @@ bool Grade::isGradeTooLow(int grade)
     return grade > GRADE_MIN;
 }
 
-Bureaucrat::TooLow::GradeTooLowException()
+Bureaucrat::GradeTooLowException::GradeTooLowException()
     : std::out_of_range("grade is too low")
 {
 }
 
-Bureaucrat::TooHigh::GradeTooHighException()
+Bureaucrat::GradeTooHighException::GradeTooHighException()
     : std::out_of_range("grade is too high")
 {
+}
+
+Bureaucrat::Bureaucrat() : _grade(Grade::GRADE_MIN), _name("unknown_bureaucrat")
+{
+    throwIfInvalidGrade(_grade);
 }
 
 Bureaucrat::Bureaucrat(const std::string &name, int grade)
@@ -41,7 +46,9 @@ Bureaucrat::Bureaucrat(const Bureaucrat &other)
     throwIfInvalidGrade(_grade);
 }
 
-Bureaucrat::~Bureaucrat() {}
+Bureaucrat::~Bureaucrat()
+{
+}
 
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other)
 {
@@ -73,12 +80,14 @@ void Bureaucrat::decrementGrade()
     _grade++;
 }
 
-void Bureaucrat::throwIfInvalidGrade(int grade) throw(TooLow, TooHigh)
+void Bureaucrat::throwIfInvalidGrade(int grade) throw(
+    GradeTooLowException, GradeTooHighException
+)
 {
     if (Grade::isGradeTooHigh(grade))
-        throw TooHigh();
+        throw GradeTooHighException();
     if (Grade::isGradeTooLow(grade))
-        throw TooLow();
+        throw GradeTooLowException();
 }
 
 std::ostream &operator<<(std::ostream &out, const Bureaucrat &other)

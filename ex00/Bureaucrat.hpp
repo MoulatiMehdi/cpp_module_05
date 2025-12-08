@@ -29,6 +29,7 @@ class Bureaucrat
         GradeTooLowException();
     };
 
+    Bureaucrat();
     Bureaucrat(const std::string &name, int grade);
     Bureaucrat(const Bureaucrat &other);
     ~Bureaucrat();
@@ -42,13 +43,12 @@ class Bureaucrat
     void decrementGrade();
 
   private:
-    typedef GradeTooLowException  TooLow;
-    typedef GradeTooHighException TooHigh;
-
     int               _grade;
     const std::string _name;
 
-    static void throwIfInvalidGrade(int grade) throw(TooLow, TooHigh);
+    static void throwIfInvalidGrade(int grade) throw(
+        GradeTooLowException, GradeTooHighException
+    );
 };
 
 std::ostream &operator<<(std::ostream &out, const Bureaucrat &other);

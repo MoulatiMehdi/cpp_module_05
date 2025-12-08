@@ -20,6 +20,7 @@ class Form
         GradeTooLowException();
     };
 
+    Form();
     Form(const std::string &name, int gradeToSign, int gradeToExecute);
     Form(const Form &other);
     ~Form();
@@ -32,16 +33,15 @@ class Form
     const std::string &getName() const;
 
   private:
-    typedef GradeTooLowException  TooLow;
-    typedef GradeTooHighException TooHigh;
-
     bool              _isSigned;
     const int         _gradeToSign;
     const int         _gradeToExecute;
     const std::string _name;
 
     Form       &operator=(const Form &other);
-    static void throwIfInvalidGrade(int grade) throw(TooLow, TooHigh);
+    static void throwIfInvalidGrade(int grade) throw(
+        GradeTooLowException, GradeTooHighException
+    );
 };
 
 std::ostream &operator<<(std::ostream &out, const Form &other);

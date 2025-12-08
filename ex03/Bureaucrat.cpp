@@ -1,6 +1,5 @@
 #include "Bureaucrat.hpp"
 #include "AForm.hpp"
-#include <exception>
 #include <iostream>
 #include <stdexcept>
 #include <string>
@@ -18,14 +17,19 @@ bool Grade::isGradeTooLow(int grade)
     return grade > GRADE_MIN;
 }
 
-Bureaucrat::TooLow::GradeTooLowException()
-    : std::out_of_range("Grade invalid : too low")
+Bureaucrat::GradeTooLowException::GradeTooLowException()
+    : std::out_of_range("grade is too low")
 {
 }
 
-Bureaucrat::TooHigh::GradeTooHighException()
-    : std::out_of_range("Grade invalid : too high")
+Bureaucrat::GradeTooHighException::GradeTooHighException()
+    : std::out_of_range("grade is too high")
 {
+}
+
+Bureaucrat::Bureaucrat() : _grade(Grade::GRADE_MIN), _name("unknown_bureaucrat")
+{
+    throwIfInvalidGrade(_grade);
 }
 
 Bureaucrat::Bureaucrat(const std::string &name, int grade)
@@ -38,12 +42,13 @@ Bureaucrat::Bureaucrat(const std::string &name, int grade)
 Bureaucrat::Bureaucrat(const Bureaucrat &other)
     : _grade(other._grade),
       _name(other._name)
-
 {
     throwIfInvalidGrade(_grade);
 }
 
-Bureaucrat::~Bureaucrat() {}
+Bureaucrat::~Bureaucrat()
+{
+}
 
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other)
 {
@@ -75,7 +80,24 @@ void Bureaucrat::decrementGrade()
     _grade++;
 }
 
-void Bureaucrat::signForm(AForm &form)
+void Bureaucrat::throwIfInvalidGrade(int grade) throw(
+    GradeTooLowException, GradeTooHighException
+)
+{
+    if (Grade::isGradeTooHigh(grade))
+        throw GradeTooHighException();
+    if (Grade::isGradeTooLow(grade))
+        throw GradeTooLowException();
+}
+
+std::ostream &operator<<(std::ostream &out, const Bureaucrat &other)
+{
+    std::cout << other.getName() << ", bureaucrat grade " << other.getGrade()
+              << std::endl;
+    return out;
+}
+
+void Bureaucrat::signForm(AForm &form) const
 {
     try
     {
@@ -87,14 +109,6 @@ void Bureaucrat::signForm(AForm &form)
         std::cout << _name << " couldn't sign " << form.getName() << " because "
                   << e.what() << std::endl;
     }
-}
-
-void Bureaucrat::throwIfInvalidGrade(int grade) throw(TooLow, TooHigh)
-{
-    if (Grade::isGradeTooHigh(grade))
-        throw TooHigh();
-    if (Grade::isGradeTooLow(grade))
-        throw TooLow();
 }
 
 void Bureaucrat::executeForm(const AForm &form) const
@@ -109,11 +123,4 @@ void Bureaucrat::executeForm(const AForm &form) const
         std::cout << _name << " couldn't execute " << form.getName()
                   << " because " << e.what() << std::endl;
     }
-}
-
-std::ostream &operator<<(std::ostream &out, Bureaucrat &other)
-{
-    std::cout << other.getName() << ", bureaucrat grade " << other.getGrade()
-              << std::endl;
-    return out;
 }

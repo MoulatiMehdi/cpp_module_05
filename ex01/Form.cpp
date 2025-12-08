@@ -1,22 +1,28 @@
 
 #include "Form.hpp"
-#include <ios>
+#include "Bureaucrat.hpp"
 #include <iostream>
 #include <stdexcept>
 #include <string>
 
-Form::TooLow::GradeTooLowException() : std::out_of_range("grade is too low") {}
-
-Form::TooHigh::GradeTooHighException() : std::out_of_range("grade is too high")
+Form::GradeTooLowException::GradeTooLowException()
+    : std::out_of_range("grade is too low")
 {
 }
 
-void Form::throwIfInvalidGrade(int grade) throw(TooLow, TooHigh)
+Form::GradeTooHighException::GradeTooHighException()
+    : std::out_of_range("grade is too high")
+{
+}
+
+void Form::throwIfInvalidGrade(int grade) throw(
+    GradeTooLowException, GradeTooHighException
+)
 {
     if (Grade::isGradeTooHigh(grade))
-        throw TooHigh();
+        throw GradeTooHighException();
     if (Grade::isGradeTooLow(grade))
-        throw TooLow();
+        throw GradeTooLowException();
 }
 
 Form::Form(const std::string &name, int gradeToSign, int gradeToExecute)
@@ -37,7 +43,9 @@ Form::Form(const Form &other)
 {
 }
 
-Form::~Form() {}
+Form::~Form()
+{
+}
 
 Form &Form::operator=(const Form &)
 {
@@ -67,7 +75,7 @@ bool Form::isSigned() const
 void Form::beSigned(const Bureaucrat &other)
 {
     if (other.getGrade() > _gradeToSign)
-        throw TooLow();
+        throw GradeTooLowException();
     _isSigned = true;
 }
 

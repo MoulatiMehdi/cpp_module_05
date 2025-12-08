@@ -9,5 +9,5 @@ class Intern
     ~Intern();
 
     Intern &operator=(const Intern &);
-    AForm *makeForm(std::string name, std::string target);
+    AForm  *makeForm(std::string name, std::string target);
 };

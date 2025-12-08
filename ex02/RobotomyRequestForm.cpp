@@ -9,8 +9,16 @@
 #include <stdexcept>
 #include <string>
 
+const std::string RobotomyRequestForm::NAME = "robotomy request";
+
+RobotomyRequestForm::RobotomyRequestForm()
+    : AForm(NAME, 72, 45),
+      _target("Bender")
+{
+}
+
 RobotomyRequestForm::RobotomyRequestForm(const std::string &name)
-    : AForm("robotomy_request_form", 72, 45),
+    : AForm(NAME, 72, 45),
       _target(name)
 {
 }
@@ -21,7 +29,9 @@ RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &other)
 {
 }
 
-RobotomyRequestForm::~RobotomyRequestForm() {}
+RobotomyRequestForm::~RobotomyRequestForm()
+{
+}
 
 RobotomyRequestForm &
 RobotomyRequestForm::operator=(const RobotomyRequestForm &other)
@@ -40,4 +50,9 @@ void RobotomyRequestForm::executeFormAction() const
                   << std::endl;
     else
         throw std::runtime_error("the robotomy of " + _target + " failed");
+}
+
+AForm *RobotomyRequestForm::clone(const std::string &target)
+{
+    return new RobotomyRequestForm(target);
 }

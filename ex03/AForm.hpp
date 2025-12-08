@@ -20,22 +20,20 @@ class AForm
         GradeTooLowException();
     };
 
-    typedef GradeTooLowException  TooLow;
-    typedef GradeTooHighException TooHigh;
-
+    AForm();
     AForm(const std::string &name, int gradeToSign, int gradeToExecute);
     AForm(const AForm &other);
-
     virtual ~AForm();
-    virtual void   executeFormAction() const              = 0;
 
-    void               execute(const Bureaucrat &other) const;
+    void beSigned(const Bureaucrat &other);
+
     int                getGradeToSign() const;
     int                getGradeToExecute() const;
     bool               isSigned() const;
     const std::string &getName() const;
 
-    void beSigned(Bureaucrat &other);
+    virtual void executeFormAction() const = 0;
+    void         execute(const Bureaucrat &other) const;
 
   private:
     bool              _isSigned;
@@ -44,7 +42,10 @@ class AForm
     const std::string _name;
 
     AForm      &operator=(const AForm &other);
-    static void throwIfInvalidGrade(int grade) throw(TooLow, TooHigh);
+    static void throwIfInvalidGrade(int grade) throw(
+        GradeTooLowException, GradeTooHighException
+    );
 };
 
+std::ostream &operator<<(std::ostream &out, const AForm &other);
 #endif

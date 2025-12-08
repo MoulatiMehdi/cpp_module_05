@@ -6,9 +6,18 @@
 #include <cstring>
 #include <ctime>
 #include <iostream>
+#include <string>
+
+const std::string PresidentialPardonForm::NAME = "presidential pardon";
+
+PresidentialPardonForm::PresidentialPardonForm()
+    : AForm(NAME, 25, 5),
+      _target("unknown")
+{
+}
 
 PresidentialPardonForm::PresidentialPardonForm(const std::string &name)
-    : AForm("robotomy_request_form", 25, 5),
+    : AForm(NAME, 25, 5),
       _target(name)
 {
 }
@@ -21,7 +30,9 @@ PresidentialPardonForm::PresidentialPardonForm(
 {
 }
 
-PresidentialPardonForm::~PresidentialPardonForm() {}
+PresidentialPardonForm::~PresidentialPardonForm()
+{
+}
 
 PresidentialPardonForm &
 PresidentialPardonForm::operator=(const PresidentialPardonForm &other)
@@ -34,4 +45,9 @@ void PresidentialPardonForm::executeFormAction() const
 {
     std::cout << _target << " has been pardoned by Zaphod Beeblebrox"
               << std::endl;
+}
+
+AForm *PresidentialPardonForm::clone(const std::string &target)
+{
+    return new PresidentialPardonForm(target);
 }

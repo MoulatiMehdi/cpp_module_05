@@ -25,7 +25,7 @@ int main()
                 bob.signForm(*form);
                 bob.executeForm(*form);
             }
-            std::cout << std::string(50,'-') << std::endl;
+            std::cout << std::string(50, '-') << std::endl;
         }
     }
     return 0;

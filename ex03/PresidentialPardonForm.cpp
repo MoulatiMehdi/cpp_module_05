@@ -10,9 +10,10 @@
 
 const std::string PresidentialPardonForm::NAME = "presidential pardon";
 
-AForm *PresidentialPardonForm::clone(const std::string &target) 
+PresidentialPardonForm::PresidentialPardonForm()
+    : AForm(NAME, 25, 5),
+      _target("unknown")
 {
-    return new PresidentialPardonForm(target);
 }
 
 PresidentialPardonForm::PresidentialPardonForm(const std::string &name)
@@ -29,7 +30,9 @@ PresidentialPardonForm::PresidentialPardonForm(
 {
 }
 
-PresidentialPardonForm::~PresidentialPardonForm() {}
+PresidentialPardonForm::~PresidentialPardonForm()
+{
+}
 
 PresidentialPardonForm &
 PresidentialPardonForm::operator=(const PresidentialPardonForm &other)
@@ -42,4 +45,9 @@ void PresidentialPardonForm::executeFormAction() const
 {
     std::cout << _target << " has been pardoned by Zaphod Beeblebrox"
               << std::endl;
+}
+
+AForm *PresidentialPardonForm::clone(const std::string &target)
+{
+    return new PresidentialPardonForm(target);
 }

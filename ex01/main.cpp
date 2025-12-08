@@ -10,11 +10,11 @@ int main()
 
         std::cout << a;
         std::cout << b;
-        
+
         std::cout << "Signing Contract ==>";
         a.signForm(b);
         std::cout << b;
-        
+
         std::cout << std::endl;
     }
     {
@@ -23,7 +23,7 @@ int main()
 
         std::cout << a;
         std::cout << b;
-        
+
         std::cout << "Signing Contract ==>";
         a.signForm(b);
         std::cout << b;

@@ -7,9 +7,10 @@
 void title(const std::string &label)
 {
     std::cout << std::endl;
-    std::cout << std::string(100, '-') << std::endl;
+    std::cout << std::string(100, '*') << std::endl;
     std::cout << "\t" << label << std::endl;
-    std::cout << std::string(100, '-') << std::endl;
+    std::cout << std::string(100, '*') << std::endl;
+    std::cout << std::endl;
 }
 
 int main(int, char *[])

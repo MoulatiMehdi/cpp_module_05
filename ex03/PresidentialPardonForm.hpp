@@ -13,6 +13,7 @@ class PresidentialPardonForm : public AForm
     static const std::string NAME;
     static AForm            *clone(const std::string &target);
 
+    PresidentialPardonForm();
     PresidentialPardonForm(const std::string &name);
     PresidentialPardonForm(const PresidentialPardonForm &other);
     ~PresidentialPardonForm();

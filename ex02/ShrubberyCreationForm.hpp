@@ -10,6 +10,10 @@ class ShrubberyCreationForm : public AForm
     std::string _target;
 
   public:
+    static const std::string NAME;
+    static AForm            *clone(const std::string &name);
+
+    ShrubberyCreationForm();
     ShrubberyCreationForm(const std::string &name);
     ShrubberyCreationForm(const ShrubberyCreationForm &other);
     ~ShrubberyCreationForm();

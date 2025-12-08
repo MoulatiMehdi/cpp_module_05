@@ -4,18 +4,24 @@
 #include <stdexcept>
 #include <string>
 
-AForm::TooLow::GradeTooLowException() : std::out_of_range("grade is too low") {}
-
-AForm::TooHigh::GradeTooHighException() : std::out_of_range("grade is too high")
+AForm::GradeTooLowException::GradeTooLowException()
+    : std::out_of_range("grade is too low")
 {
 }
 
-void AForm::throwIfInvalidGrade(int grade) throw(TooLow, TooHigh)
+AForm::GradeTooHighException::GradeTooHighException()
+    : std::out_of_range("grade is too high")
+{
+}
+
+void AForm::throwIfInvalidGrade(int grade) throw(
+    GradeTooLowException, GradeTooHighException
+)
 {
     if (Grade::isGradeTooHigh(grade))
-        throw TooHigh();
+        throw GradeTooHighException();
     if (Grade::isGradeTooLow(grade))
-        throw TooLow();
+        throw GradeTooLowException();
 }
 
 AForm::AForm(const std::string &name, int gradeToSign, int gradeToExecute)
@@ -36,7 +42,14 @@ AForm::AForm(const AForm &other)
 {
 }
 
-AForm::~AForm() {}
+AForm::~AForm()
+{
+}
+
+AForm &AForm::operator=(const AForm &)
+{
+    return *this;
+}
 
 const std::string &AForm::getName() const
 {
@@ -58,11 +71,19 @@ bool AForm::isSigned() const
     return _isSigned;
 }
 
-void AForm::beSigned(Bureaucrat &other)
+void AForm::beSigned(const Bureaucrat &other)
 {
     if (other.getGrade() > _gradeToSign)
-        throw TooLow();
+        throw GradeTooLowException();
     _isSigned = true;
+}
+
+std::ostream &operator<<(std::ostream &out, const AForm &other)
+{
+    std::cout << other.getName() << ", grade to sign " << other.getGradeToSign()
+              << ", grade to execute " << other.getGradeToExecute()
+              << ", signed " << std::boolalpha << other.isSigned() << std::endl;
+    return out;
 }
 
 void AForm::execute(const Bureaucrat &other) const
@@ -70,24 +91,11 @@ void AForm::execute(const Bureaucrat &other) const
     if (!_isSigned)
         throw std::logic_error("it is not signed");
     if (other.getGrade() > _gradeToExecute)
-        throw TooLow();
+        throw GradeTooLowException();
     executeFormAction();
 }
 
 void AForm::executeFormAction() const
 {
     std::cout << "Default Form Action is called" << std::endl;
-}
-
-AForm &AForm::operator=(const AForm &)
-{
-    return *this;
-}
-
-std::ostream &operator<<(std::ostream &out, AForm &other)
-{
-    std::cout << other.getName() << ", grade to sign " << other.getGradeToSign()
-              << ", grade to execute " << other.getGradeToExecute()
-              << std::endl;
-    return out;
 }

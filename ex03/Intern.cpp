@@ -6,11 +6,17 @@
 #include <iostream>
 #include <string>
 
-Intern::Intern() {}
+Intern::Intern()
+{
+}
 
-Intern::~Intern() {}
+Intern::~Intern()
+{
+}
 
-Intern::Intern(const Intern &) {}
+Intern::Intern(const Intern &)
+{
+}
 
 Intern &Intern::operator=(const Intern &)
 {

@@ -31,29 +31,30 @@ class Bureaucrat
         GradeTooLowException();
     };
 
+    Bureaucrat();
     Bureaucrat(const std::string &name, int grade);
     Bureaucrat(const Bureaucrat &other);
     ~Bureaucrat();
+    void signForm(AForm &form) const;
 
     Bureaucrat &operator=(const Bureaucrat &other);
-    void        signForm(AForm &form);
-    void        incrementGrade();
-    void        decrementGrade();
 
-    void               executeForm(const AForm &form) const;
     const std::string &getName() const;
     int                getGrade() const;
+    void               executeForm(const AForm &form) const;
+
+    void incrementGrade();
+    void decrementGrade();
 
   private:
-    typedef GradeTooLowException  TooLow;
-    typedef GradeTooHighException TooHigh;
-
     int               _grade;
     const std::string _name;
 
-    static void throwIfInvalidGrade(int grade) throw(TooLow, TooHigh);
+    static void throwIfInvalidGrade(int grade) throw(
+        GradeTooLowException, GradeTooHighException
+    );
 };
 
-std::ostream &operator<<(std::ostream &out, Bureaucrat &other);
+std::ostream &operator<<(std::ostream &out, const Bureaucrat &other);
 
 #endif

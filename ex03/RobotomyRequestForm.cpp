@@ -11,9 +11,10 @@
 
 const std::string RobotomyRequestForm::NAME = "robotomy request";
 
-AForm *RobotomyRequestForm::clone(const std::string &target) 
+RobotomyRequestForm::RobotomyRequestForm()
+    : AForm(NAME, 72, 45),
+      _target("Bender")
 {
-    return new RobotomyRequestForm(target);
 }
 
 RobotomyRequestForm::RobotomyRequestForm(const std::string &name)
@@ -28,7 +29,9 @@ RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &other)
 {
 }
 
-RobotomyRequestForm::~RobotomyRequestForm() {}
+RobotomyRequestForm::~RobotomyRequestForm()
+{
+}
 
 RobotomyRequestForm &
 RobotomyRequestForm::operator=(const RobotomyRequestForm &other)
@@ -49,3 +52,7 @@ void RobotomyRequestForm::executeFormAction() const
         throw std::runtime_error("the robotomy of " + _target + " failed");
 }
 
+AForm *RobotomyRequestForm::clone(const std::string &target)
+{
+    return new RobotomyRequestForm(target);
+}
